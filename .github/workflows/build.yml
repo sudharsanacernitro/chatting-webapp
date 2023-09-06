@@ -1,51 +1,47 @@
-name: CI
+name: Build APK with Buildozer
+
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  schedule:
-    - cron: '0 0 1,15 * *'
+    branches:
+      - main  # Replace with your desired branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      # used to cache dependencies with a timeout
-      - name: Get Date
-        id: get-date
-        run: |
-          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
-        shell: bash
-
-      - name: Cache Buildozer global directory
-        uses: actions/cache@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
         with:
-          path: .buildozer_global
-          key: buildozer-global-${{ hashFiles('buildozer.spec') }} # Replace with your path
+          java-version: '8'  # Java 8 is recommended for Android development
 
-      - uses: actions/cache@v2
+      - name: Install Android SDK
+        uses: wzieba/FakeAndroid@v1
         with:
-          path: .buildozer
-          key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
-          
+          api-level: 30  # Specify the Android API level you need
+          target: android-30  # Specify the Android target
+
       - name: Install AIDL
         run: |
           sudo apt-get update -q
           sudo apt-get install -y aidl
-          
-      - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
-        with:
-          command: buildozer android debug
-          buildozer_version: master
+        # You can modify this step if you have specific installation requirements for AIDL
 
-      - name: Upload artifacts
+      - name: Install Buildozer
+        run: |
+          pip install buildozer
+          buildozer init  # Initialize your Buildozer project here
+        # You may need to customize this step to match your Buildozer setup process
+
+      - name: Build APK
+        run: |
+          buildozer android debug  # Run your Buildozer build command here
+
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v2
         with:
-          name: package
-          path: ${{ steps.buildozer.outputs.filename }}
+          name: my-app  # Replace with a suitable name for your artifact
+          path: ./bin  # Specify the path where your APK is generated
