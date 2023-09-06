@@ -1,47 +1,43 @@
-name: CI
+name: Build APK from Python
+
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main  # Replace with your desired branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      # used to cache dependencies with a timeout
-      - name: Get Date
-        id: get-date
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'  # Java 8 is recommended for Android development
+
+      - name: Install Android SDK
+        uses: wzieba/FakeAndroid@v1
+        with:
+          api-level: 30  # Specify the Android API level you need
+          target: android-30  # Specify the Android target
+
+      - name: Install dependencies
         run: |
-          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
-        shell: bash
+          pip install kivy  # Replace with your Python dependencies if needed
+          # You can install other dependencies required for your Python script
 
-      - name: Cache Buildozer global directory
-        uses: actions/cache@v2
-        with:
-          path: .buildozer_global
-          key: buildozer-global-${{ hashFiles('buildozer.spec') }} # Replace with your path
-          
-      - name: Install AIDL
+      - name: Build APK
         run: |
-          sudo apt-get update -q
-          sudo apt-get install -y aidl
-          
-      - uses: actions/cache@v2
-        with:
-          path: .buildozer
-          key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
+          # Replace with the commands to convert your Python script to APK
+          # Example using Kivy Buildozer
+          buildozer init
+          buildozer android debug
 
-      - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
-        with:
-          command: buildozer android debug
-          buildozer_version: master
-
-      - name: Upload artifacts
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v2
         with:
-          name: package
-          path: ${{ steps.buildozer.outputs.filename }}
+          name: my-app  # Replace with a suitable name for your artifact
+          path: ./bin  # Specify the path where your APK is generated
