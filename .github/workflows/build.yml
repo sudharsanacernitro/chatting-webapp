@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted  # Use a self-hosted runner with Android environment
 
     steps:
       - name: Checkout code
@@ -17,12 +17,6 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '8'  # Java 8 is recommended for Android development
-
-      - name: Install Android SDK
-        uses: wzieba/FakeAndroid@v1
-        with:
-          api-level: 30  # Specify the Android API level you need
-          target: android-30  # Specify the Android target
 
       - name: Install AIDL
         run: |
