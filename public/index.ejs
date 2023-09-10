@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+  <title>TERMINAL COMMANDS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+     <link rel="stylesheet" href="https://pyscript.net/releases/2022.12.1/pyscript.css" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+.form-container {
+  margin: 30% auto;
+  display: block;
+  width:500px;
+  text-align:center;
+}
+
+body{
+  margin: 0 auto;
+  font-family: Arial;
+  background-color: dimgrey;
+  color: black;
+}
+
+.form-container input{
+  margin-bottom:10px;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+  <h2><center>LOG-IN PAGE</center></h2><br><br><br>
+  <center>
+
+  <form  action="/l" method="post">
+      <label>enter your name:</label>
+      <input type="text" id="name" name="name"  maxlenght="40" size="50" ><br><br><br>
+    <center><input type="submit" name="RUN"  onclick="showInput();" value="continue" ></center>
+  </form>
+<script>
+function showInput() {
+        const x=document.getElementById("lat").value;          
+    
+// Check browser support
+if (typeof(Storage) !== "undefined") {
+  // Store
+  localStorage.setItem("lastnam", x);
+  }
+  }
+  </script>
+  
+</div>
+</center>
+</body>
+</html>
+

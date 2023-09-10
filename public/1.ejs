@@ -1,0 +1,317 @@
+<html>
+<head><style>
+.button {
+  background-color: #555555;
+  border: none;
+  color: white;
+  padding: 20px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+.button {
+  margin: 0;
+  position: absolute;
+  top: 15%;
+  left: 90%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.container {
+
+  max-height: 980px;
+  
+  
+}
+
+#jk{
+width:300;
+height:50;
+  padding: 20px 30px;
+}
+#input-form {
+
+color: black;
+  display: flex;
+
+}
+#ok
+{
+        align-items: center;
+        justify-content: center;
+
+
+}
+</style>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.2/css/bootstrap.min.css">
+
+  <style>
+  body{
+  margin: 0 auto;
+  font-family: Arial;
+  background-color:#000000;
+  color: #000000;
+}
+#op{
+  overflow-y: scroll; /* Show vertical scrollbar */
+  /* Show horizontal scrollbar */
+  width:170%;
+  height:95%;
+  background-size: 1400px;
+color: white;
+
+}
+.offcanvas-body
+{background-color: dimgrey;
+
+}
+#messagess
+{background-color: dimgrey;
+width:auto;
+float: left;
+height: auto;
+  padding: 10px;
+  clear: both;
+
+        border: 1px black;
+
+}
+#result
+{
+float:left;
+max-width:335px;
+color:white;
+background-color:dimgrey;
+text-align:center;
+}
+
+#m {
+background-color:dimgrey;
+width:auto;
+  display: flex;
+
+  clear: both;
+
+ float: right;
+ height: auto;
+  padding: 10px;
+
+        border: 1px black;
+
+
+
+} 
+
+.scroll-container {
+  height: 850px; /* Set your preferred height */
+  overflow-y: scroll; /* Enable vertical scrollbar */
+}
+#ko
+{
+  font-size: 100%;
+color:black;
+  padding: 10px;
+
+}
+h2
+{    font-family: 'Cedarville Cursive';font-size: 22px;
+}
+#im {
+  border-radius: 50%;
+}
+#j{color:black;
+width:300;
+height:50;
+  padding: 20px 30px;}
+  </style>
+  <link href='https://fonts.googleapis.com/css?family=Cedarville Cursive' rel='stylesheet'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body data-spy="scroll" data-target="#user" data-offset="20" style="background-color:black;">
+<div id="row">
+  <div id="result" class="col-lg-4 hidden-sm hidden-xs"><img src="/user.jpg" id="im" alt="Avatar" width="50" height="50" />
+<div id="ko"></div><img src="/user1.png" alt="Girl in a jacket" width="320" height="400"><br><br>
+  <p>developed by:</p><h2 style="color:black;font-family: 'Cedarville Cursive';"> R.Sudharsan</h2><div id="oo"></div>
+</div>
+  <div class="col-lg-5 col-sm-6 col-xs-6">
+  <div class="container  " id="op" style="background-color:black;border: thin solid white">
+<br><br><br></div>
+  <form id="input-form" >
+   <center> <input type="text" id="message" name="message" placeholder="Enter your message" ></center>
+    <button type="submit" value="Send" id="ok"onclick="parseQueryString();">
+    <i class="fas fa-paper-plane"></i></button>
+  </form></div>
+    <div class="col-lg-4 col-sm-6 col-xs-6">
+    <button class="button" type="button" id="button" data-bs-toggle="offcanvas" data-bs-target="#demo">contacts</button><br></div></div>
+  <div class="offcanvas offcanvas-end" id="demo">
+  <div class="offcanvas-header">
+    <h1 class="offcanvas-title">CONTACTS</h1>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body" id="us">
+   <ul id="user" data-spy="scroll" class="scroll-container">
+    <% parsedList.forEach(function(item) { %>
+        <button type="button" id="jk" onclick="danger('<%= item %>');"><%= item %></button><br><br>
+
+    <% }); %>
+</ul>
+  </div>
+</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.2/js/bootstrap.bundle.min.js"> </script>
+
+  <script>
+    // Function to close the offcanvas when the button is clicked
+    function closeOffcanvas() {
+      var offcanvas = new bootstrap.Offcanvas(document.querySelector('.offcanvas'));
+      offcanvas.hide();
+    }
+    
+  </script>
+ <script>
+ const k="<%= name %>";
+const h=localStorage.getItem('phone'); 
+    const webSocket = new WebSocket('ws://http://10.1.71.246:443/?'+k, [], {
+  headers: {
+    "Connection": "Upgrade",
+    // Additional headers if required
+  }
+});
+
+
+      var messages=document.getElementById("op")
+            var me=document.getElementById("oo")
+let o;
+var c=[];
+var d=[];
+function danger(l){
+ o=l;    
+ var contentDiv = document.getElementById('op');
+ while (contentDiv.firstChild) {
+        contentDiv.removeChild(contentDiv.firstChild);
+    }
+
+ document.getElementById("ko").innerHTML= o;
+
+      messages.innerHTML = '';
+      chat();
+}
+function chat(){
+
+for(let i=0;i<c.length;i++){
+const st=c[i].split('&');
+  if(o===st[1] && k===st[2])
+  {
+  
+  var messageElement = document.createElement("p");
+       messageElement.id="messagess";
+              //messageElement.class="container";
+    messageElement.textContent = st[0];
+    messages.appendChild(messageElement);
+ }
+ else if(k===st[1] && o===st[2])
+ {
+ var messageElement = document.createElement("p");
+       messageElement.id="m";
+              //messageElement.class="container";
+    messageElement.textContent = st[0];
+    messages.appendChild(messageElement);
+ }
+ }
+ 
+ 
+ }if(h!='1')
+    webSocket.onmessage = (event) => {
+
+      
+      console.log(event)
+      let str=event.data.split("&");
+
+            var user=document.getElementById('user');
+      if(str[1]==='user')
+      {
+      const messageElement = document.createElement("button");
+       messageElement.id="jk";
+              //messageElement.class="container";
+       messageElement.onclick=function() {
+    o=str[0];
+    danger(o)
+ //document.getElementById("ko").innerHTML= o;
+  };
+    messageElement.textContent = str[0];
+    user.appendChild(messageElement);
+    user.appendChild("<br>");
+}
+
+      
+       else if(k===str[1])
+       {      c.push(str[0]+'&'+str[1]+'&'+str[2]);
+       const messageElement = document.createElement("p");
+              messageElement.id="m";
+                           // messageElement.class="container";
+    messageElement.textContent = str[0];
+   messages.appendChild(messageElement);
+   messages.appendChild("<br>");
+       }
+       else if(k===str[2])
+      {    c.push(str[0]+'&'+str[1]+'&'+str[2]);
+      if(o===str[1]){
+       const messageElement = document.createElement("p");
+       messageElement.id="messagess";
+              //messageElement.class="container";
+    messageElement.textContent = str[0];//(c.length).toString();
+    messages.appendChild(messageElement);
+    messages.appendChild("<br>");
+}
+else{
+
+d.push(str[1]);
+var contentDiv = document.getElementById('oo');
+const messageElement = document.createElement("button");
+
+
+       messageElement.id="j";
+              //messageElement.class="container";
+       messageElement.onclick=function() {
+    o=str[1];
+    danger(o);
+    
+ //document.getElementById("ko").innerHTML= o;
+  };
+    messageElement.textContent = str[1];
+    me.appendChild(messageElement);
+    me.appendChild("<br>");
+    
+        }
+        }
+      
+    };
+    
+     
+    str="";
+    webSocket.addEventListener("open", () => {
+      console.log("We are connected");
+            console.log(o);
+    });
+    
+    function sendMessage(event) {
+      var inputMessage = document.getElementById('message')
+      webSocket.send(inputMessage.value+'&'+k+'&'+o+'&'+'8')
+      inputMessage.value = ""
+      event.preventDefault();
+
+    }
+    document.getElementById('input-form').addEventListener('submit', sendMessage);
+    
+  </script>
+</body>
+</html>
+
