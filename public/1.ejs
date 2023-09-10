@@ -179,7 +179,7 @@ height:50;
  <script>
  const k="<%= name %>";
 const h=localStorage.getItem('phone'); 
-    const webSocket = new WebSocket('ws://http://10.1.71.246:443/?'+k, [], {
+    const webSocket = new WebSocket('ws://http://localhost:443/?'+k, [], {
   headers: {
     "Connection": "Upgrade",
     // Additional headers if required
